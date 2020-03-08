@@ -1,0 +1,64 @@
+# /home/sergey/Documents/Netology/py-homework-basic-files-master/2.4.files/recipes.txt
+# cook_book = {
+#   'Омлет': [
+#     {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
+#     {'ingredient_name': 'Молоко', 'quantity': 100, 'measure': 'мл'},
+#     {'ingredient_name': 'Помидор', 'quantity': 2, 'measure': 'шт'}
+#     ],
+#   'Утка по-пекински': [
+#     {'ingredient_name': 'Утка', 'quantity': 1, 'measure': 'шт'},
+#     {'ingredient_name': 'Вода', 'quantity': 2, 'measure': 'л'},
+#     {'ingredient_name': 'Мед', 'quantity': 3, 'measure': 'ст.л'},
+#     {'ingredient_name': 'Соевый соус', 'quantity': 60, 'measure': 'мл'}
+#     ],
+#   'Запеченный картофель': [
+#     {'ingredient_name': 'Картофель', 'quantity': 1, 'measure': 'кг'},
+#     {'ingredient_name': 'Чеснок', 'quantity': 3, 'measure': 'зубч'},
+#     {'ingredient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
+#     ]
+#   }
+def count_number_of_dishes(document):
+    """Number of dishes in our cookbook for a correct counting 'make_a_dict'"""
+    with open(document) as f:
+        number_of_dishes = 1
+        for line in f.readline():
+            if line == '\n':
+                number_of_dishes += 1
+        return number_of_dishes + 1
+
+
+
+def make_a_dict(document):
+    """Template for creating a dictionary with cookbook data"""
+    recepts = dict()
+    with open(document) as f:
+        number_of_cycles = count_number_of_dishes(document)
+        for cycle in range(number_of_cycles):
+            dish_name = f.readline().strip()  # name of dish
+            recept = list()
+            number_ingredients = int(f.readline())
+            for ingredient in range(number_ingredients):
+                ingredient_list = f.readline().strip().split(' | ')
+                ingredient_dict = {
+                    'ingredient_name': ingredient_list[0],
+                    'quantity': ingredient_list[1],
+                    'measure': ingredient_list[2]
+                }
+
+                recept.append(ingredient_dict)
+
+            recepts[dish_name] = recept
+            f.readline()
+        return recepts
+
+
+def show_cook_book(cook_book):
+    for dish in cook_book:
+        print(f'{dish}')
+        for ingredient in cook_book[dish]:
+            print(f'{ingredient}')
+        print()
+
+
+cook_book = make_a_dict(input('Введите имя файла с рецептами\n'))
+
