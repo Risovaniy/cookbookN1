@@ -24,7 +24,7 @@ def count_number_of_dishes(document):
         for line in f.readline():
             if line == '\n':
                 number_of_dishes += 1
-        return number_of_dishes + 1
+        return number_of_dishes 
 
 
 
